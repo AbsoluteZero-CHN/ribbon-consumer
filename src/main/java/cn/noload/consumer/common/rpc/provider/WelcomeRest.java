@@ -1,5 +1,6 @@
 package cn.noload.consumer.common.rpc.provider;
 
+import cn.noload.consumer.common.rpc.provider.service.WelcomeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,17 +11,17 @@ import org.springframework.web.client.RestTemplate;
  * @version 2018/4/27
  */
 @RestController
-@RequestMapping("")
+@RequestMapping("welcome")
 public class WelcomeRest {
 
-    private final RestTemplate restTemplate;
+    private final WelcomeService welcomeService;
 
-    public WelcomeRest(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public WelcomeRest(WelcomeService welcomeService) {
+        this.welcomeService = welcomeService;
     }
 
     @GetMapping(value = "/rest")
     public String rest() {
-        return restTemplate.getForEntity("http://eureka-provider/hello/index", String.class).getBody();
+        return welcomeService.welcome();
     }
 }
