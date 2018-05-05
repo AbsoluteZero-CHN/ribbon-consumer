@@ -1,10 +1,10 @@
-package cn.noload.consumer.common.rpc.provider;
+package cn.noload.consumer.web.rest;
 
-import cn.noload.consumer.common.rpc.provider.service.WelcomeService;
+import cn.noload.consumer.service.hystrix.WelcomeService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * @author caohao
@@ -20,8 +20,8 @@ public class WelcomeRest {
         this.welcomeService = welcomeService;
     }
 
-    @GetMapping(value = "/rest")
-    public String rest() {
-        return welcomeService.welcome();
+    @GetMapping(value = "/rest/{id}")
+    public String rest(@PathVariable Long id) {
+        return welcomeService.welcome(id);
     }
 }
